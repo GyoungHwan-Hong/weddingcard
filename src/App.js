@@ -1,9 +1,26 @@
 import './App.css';
+import React from 'react';
+import Location from './location';
+import PhotoAlbum from "react-photo-album"
+
+const firstRowPhotos = [
+  { src: "/img/1.jpg", width: 100, height: 100 },
+  { src: "/img/2.jpg", width: 100, height: 100 },
+  { src: "/img/3.jpg", width: 100, height: 100 },
+  { src: "/img/4.jpg", width: 100, height: 100 },
+  { src: "/img/5.jpg", width: 100, height: 100 },
+];
+const secondRowPhotos = [
+  { src: "/img/5.jpg", width: 100, height: 100 },
+  { src: "/img/4.jpg", width: 100, height: 100 },
+  { src: "/img/3.jpg", width: 100, height: 100 },
+  { src: "/img/2.jpg", width: 100, height: 100 },
+  { src: "/img/1.jpg", width: 100, height: 100 },
+];
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
         <p>
           안녕하세요. 
         </p>
@@ -22,15 +39,16 @@ function App() {
         <h1>
           결혼합니다.
         </h1>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <PhotoAlbum layout="rows" photos={firstRowPhotos} />
+        <PhotoAlbum layout="rows" photos={secondRowPhotos} />
+
+        <p>
+          오시는 길
+        </p>
+        <Location />
+        <p>
+          서울 특별시 용산구 소월로 302
+        </p>
     </div>
   );
 }
