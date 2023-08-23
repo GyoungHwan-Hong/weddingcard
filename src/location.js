@@ -37,8 +37,8 @@ const Location = () => {
 
 
     return (
-        <div>
-            <div id="map" style={{ width: "500px", height: "400px" }}></div>
+        <div style={{display: "flex", justifyContent: "center" }}>
+            <div id="map" style={{ width: "300px", height: "300px"}}></div>
         </div>
     )
 }
