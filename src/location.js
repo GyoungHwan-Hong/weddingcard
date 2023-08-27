@@ -1,7 +1,6 @@
 /*global kakao*/
 import React, { useEffect } from 'react'
 
-const { kakao } = window;
 
 const Location = () => {
     useEffect(() => {
