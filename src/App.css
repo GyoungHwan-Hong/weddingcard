@@ -54,7 +54,7 @@
 }
 
 .icon-button {
-  background-color: #F5EBE0;
+  background-color: #d5bdaf;
   border: none;
   padding: 5px 5px;
   border-radius: 5px;
@@ -73,6 +73,16 @@
 }
 
 .icons {
-  color:#F0DBDB;
+  color:#c07e7e;
   margin: 0 20px;
+}
+
+.guides {
+  font-family: 'Noto Serif KR', serif;
+  color: #463F3A;
+}
+
+.guides_detail {
+  font-family: 'Noto Serif KR', serif;
+  color: #8a817c;
 }

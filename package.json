@@ -17,6 +17,7 @@
     "react-native-web": "^0.19.8",
     "react-photo-album": "^2.3.0",
     "react-scripts": "5.0.1",
+    "react-snowfall": "^1.2.1",
     "web-vitals": "^2.1.4",
     "yet-another-react-lightbox": "^3.12.1"
   },
