@@ -16,3 +16,63 @@
     transform: rotate(360deg);
   }
 }
+
+.App {
+  text-align: center;
+}
+
+.App h1 {
+  font-size: 2.3rem;
+  font-weight: 500;
+  margin: 16px 0 8px;
+}
+
+.App hr {
+  margin: 8px 0;
+}
+
+.App nav section {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 8px 0;
+}
+
+.App a,
+.App a:visited {
+  color: blue;
+  text-decoration: none;
+}
+
+.App a:hover {
+  text-decoration: underline;
+}
+
+.App main {
+  margin: 16px 0;
+}
+
+.icon-button {
+  background-color: #F5EBE0;
+  border: none;
+  padding: 5px 5px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.icon-button:hover {
+  background-color: #F0DBDB;
+}
+
+.icon {
+  margin-right: 5px;
+}
+
+.icons {
+  color:#F0DBDB;
+  margin: 0 20px;
+}
