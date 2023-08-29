@@ -1,38 +1,63 @@
 import './App.css';
 import React from 'react';
+import ReactDOM from 'react-dom'
 import Location from './location';
 import PhotoAlbum from "react-photo-album"
 import Lightbox from "yet-another-react-lightbox";
 import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
 import Snowfall from 'react-snowfall'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBus, faTrainSubway, faCar, faMap, faHeart, faPhotoFilm, faClipboard  } from '@fortawesome/free-solid-svg-icons'
+
 
 import "yet-another-react-lightbox/styles.css";
 
+const busIcon = <FontAwesomeIcon icon={faBus} bounce style={{color: "#d5bdaf",}} />
+const subwayIcon = <FontAwesomeIcon icon={faTrainSubway} bounce style={{color: "#d5bdaf",}} />
+const carIcon = <FontAwesomeIcon icon={faCar} bounce style={{color: "#d5bdaf",}} />
+const mapIcon = <FontAwesomeIcon icon={faMap} bounce style={{color: "#d5bdaf",}} />
+const heartIcon = <FontAwesomeIcon icon = {faHeart} bounce style={{color: "#d5bdaf",}}/>
+const photoIcon = <FontAwesomeIcon icon={faPhotoFilm} bounce style={{color: "#d5bdaf",}}/>
+const clipIcon = <FontAwesomeIcon icon={faClipboard} style={{color: "#d5bdaf", size: "xl"}}/>
+
+
 const firstRowPhotos = [
-  { src: "/img/1.jpg", width: 100, height: 100 },
-  { src: "/img/2.jpg", width: 100, height: 100 },
-  { src: "/img/3.jpg", width: 100, height: 100 },
-  { src: "/img/4.jpg", width: 100, height: 100 },
-  { src: "/img/5.jpg", width: 100, height: 100 },
-  { src: "/img/5.jpg", width: 100, height: 100 },
-  { src: "/img/4.jpg", width: 100, height: 100 },
-  { src: "/img/3.jpg", width: 100, height: 100 },
-  { src: "/img/2.jpg", width: 100, height: 100 },
-  { src: "/img/1.jpg", width: 100, height: 100 },
+  { src: "/img/100x100/k1.jpg", width: 100, height: 100 },
+  { src: "/img/100x100/k2.jpg", width: 100, height: 100 },
+  { src: "/img/100x100/k3.jpg", width: 100, height: 100 },
+  { src: "/img/100x100/k4.jpg", width: 100, height: 100 },
+  { src: "/img/100x100/k5.jpg", width: 100, height: 100 },
+  { src: "/img/100x100/k6.jpg", width: 100, height: 100 },
+  { src: "/img/100x100/k7.jpg", width: 100, height: 100 },
+  { src: "/img/100x100/k8.jpg", width: 100, height: 100 },
+  { src: "/img/100x100/k9.jpg", width: 100, height: 100 },
+  { src: "/img/100x100/k10.jpg", width: 100, height: 100 },
+  { src: "/img/100x100/k11.jpg", width: 100, height: 100 },
+  { src: "/img/100x100/k12.jpg", width: 100, height: 100 },
+  { src: "/img/100x100/k13.jpg", width: 100, height: 100 },
+  { src: "/img/100x100/k14.jpg", width: 100, height: 100 },
+  { src: "/img/100x100/k15.jpg", width: 100, height: 100 },
+  { src: "/img/100x100/k16.jpg", width: 100, height: 100 },
 ];
 
 const secondRowPhotos = [
-  { src: "/img/1.jpg" },
-  { src: "/img/2.jpg" },
-  { src: "/img/3.jpg" },
-  { src: "/img/4.jpg" },
-  { src: "/img/5.jpg" },
-  { src: "/img/5.jpg" },
-  { src: "/img/4.jpg" },
-  { src: "/img/3.jpg" },
-  { src: "/img/2.jpg" },
-  { src: "/img/1.jpg" },
+  { src: "/img/k1.jpg" },
+  { src: "/img/k2.jpg" },
+  { src: "/img/k3.jpg" },
+  { src: "/img/k4.jpg" },
+  { src: "/img/k5.jpg" },
+  { src: "/img/k6.jpg" },
+  { src: "/img/k7.jpg" },
+  { src: "/img/k8.jpg" },
+  { src: "/img/k9.jpg" },
+  { src: "/img/k10.jpg" },
+  { src: "/img/k11.jpg" },
+  { src: "/img/k12.jpg" },
+  { src: "/img/k13.jpg" },
+  { src: "/img/k14.jpg" },
+  { src: "/img/k15.jpg" },
+  { src: "/img/k16.jpg" },
 ];
 
 const leaf = document.createElement('img')
@@ -46,12 +71,22 @@ flowerPink.src = '/img/flowerPink.png'
 
 const fallingImages = [leaf, flower, whiteHeart, flowerPink]
 
+const handleCopyClipBoard = async (text) => {
+	try {
+		await navigator.clipboard.writeText(text);
+		alert("클립보드에 링크가 복사되었어요.");
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+
 function App() {
   const [index, setIndex] = React.useState(-1);
 
   return (
     <div className="App">
-      <div style={{ background: "#FCD8D4", height: "100vh", backgroundImage: `url(/img/main.jpg)`, backgroundRepeat: 'no-repeat', backgroundSize: "cover", display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center', padding: 'auto' }}>
+      <div style={{ background: "#FCD8D4", height: "100vh", backgroundImage: `url(/img/main.jpg)`, backgroundRepeat: 'no-repeat',  backgroundPosition: 'center' ,backgroundSize: "cover", display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center', padding: 'auto' }}>
         <Snowfall 
           images = {fallingImages}
           snowflakeCount={200}
@@ -60,7 +95,7 @@ function App() {
           <h1 style={{ fontFamily: 'Noto Serif KR', color: "white", margin: '0px' }}>
             <br />
             감사합니다.<br />
-            저희가 결혼합니다.
+            저희가 <span style={{ fontFamily: 'Noto Serif KR', color: "white", fontWeight: "900"}}>결혼</span>합니다.
           </h1>
           <p style={{ fontFamily: 'Noto Serif KR', fontWeight: 'bold', color: "white" }}>
             2023년 10월 15일 일요일 12시
@@ -72,7 +107,7 @@ function App() {
         </div>
       </div>
 
-      <div style={{ width: '92vw', marginLeft: '4vw', marginRight: '4vw',  marginTop: '2vh', marginBottom: '5vh', fontFamily: 'Noto Serif KR', height: '40vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center', padding: 'auto'}}>
+      <div style={{ width: '92vw', marginLeft: '4vw', marginRight: '4vw',  marginTop: '2vh', marginBottom: '2vh', fontFamily: 'Noto Serif KR', height: '40vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center', padding: 'auto'}}>
         "<br />
         저희 두 사람, <br />
         <br />
@@ -88,7 +123,7 @@ function App() {
 
       <div style={{ background: "#edede9", height: '70vh', widhth: '80vw', fontFamily: 'Noto Serif KR', margin: '0px', display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center', padding: 'auto' }}>
         <div>
-          <span style={{ fontWeight: 'bold', fontSize: '20px' }}>홍석길 심미경</span><span>의 장남</span>
+          <span style={{ fontWeight: 'bold', fontSize: '20px' }}><span style={{color: 'gray'}}>故</span>홍석길 심미경</span><span>의 장남</span>
           <br />
         </div>
         <p style={{ fontFamily: 'Noto Serif KR', fontWeight: '900', fontSize: '25px' }}>홍경환</p>
@@ -104,10 +139,9 @@ function App() {
         <a href="tel:02-511-2266">
             <CallOutlinedIcon fontSize="large" className='icons'/>
         </a>
-        <br />
       </div>
 
-      <p style={{ fontFamily: 'Nanum Pen Script', fontWeight: '900', fontSize: '25px' }}> 저희의 추억</p>
+      <p style={{ fontFamily: 'Noto Serif KR', fontWeight: '900', fontSize: '25px' }}> {photoIcon}  저희의 추억</p>
       <PhotoAlbum
         layout="rows"
         photos={firstRowPhotos}
@@ -124,7 +158,7 @@ function App() {
       />
       <div style={{background: "#f5ebe0", paddingTop: '10px', paddingBottom: '10px' }}>
       <p style={{ fontFamily: 'Noto Serif KR', fontWeight: '900', fontSize: '25px' }}>
-        <div> 오시는 길 </div>
+      <div> {mapIcon} 오시는 길 </div>
       </p>
       
       <p style={{ fontFamily: 'Noto Serif KR', fontSize: '20px' }}>
@@ -146,8 +180,8 @@ function App() {
       </div>
       </div>
 
-      <div>
-        <div> <p className='guides' style={{fontWeight: 'bold', fontSize: '24px'}}>지하철 </p> 
+      <div style={{ padding: '0 0 10px 0' }}>
+        <div> <p className='guides' style={{fontWeight: 'bold', fontSize: '24px'}}>{subwayIcon}  지하철 </p> 
         <p className='guides' style={{fontWeight: 'bold', fontSize: '20px'}}>6호선 이태원역 3번 출구</p>
         <p>[이태원119안전센터]</p>
         405 버스 승차 - 하얏트호텔 하차 - 도보 1분
@@ -155,7 +189,7 @@ function App() {
         <p>[용사평역,용산구청]</p>
         용산03버스 승차 - 필리핀대사관 하차 - 도보 4분
         </div>
-        <div> <p className='guides' style={{fontWeight: 'bold', fontSize: '24px'}}>버스</p> 
+        <div> <p className='guides' style={{fontWeight: 'bold', fontSize: '24px'}}>{busIcon}  버스</p> 
         <p className='guides' style={{fontWeight: 'bold', fontSize: '20px'}}>하얏트호텔 정류장 하차</p>
         <p>
         간선버스 402, 405 - 도보 1분
@@ -165,33 +199,34 @@ function App() {
         간선버스 402, 405 - 도보 3분
         </p>
         <p className='guides' style={{fontWeight: 'bold', fontSize: '20px'}}>필리핀 대사관 정류장 하차</p>
-        <p className='guides_detail'>
+        <p>
         마을버스 용산03 - 도보 4분
         </p>
         </div>
 
-        <div> <p className='guides' style={{fontWeight: 'bold', fontSize: '24px'}}>자가용</p>
-        한남대교 방면에서 오는 길
-        <br />        
+        <div style={{margin: '0 0 10px 0'}}> 
+        <p className='guides' style={{fontWeight: 'bold', fontSize: '24px'}}>{carIcon}  자가용</p>
+        <p className='guides' style={{fontWeight: 'bold', fontSize: '20px'}}>한남대교 방면에서 오는 길</p>       
         남산 방향 - 하얏트호텔 사거리 - 남산식물원 방향
         <br />
-        반포대교 방면에서 오는 길
-        <br />
+        <p className='guides' style={{fontWeight: 'bold', fontSize: '20px'}}>반포대교 방면에서 오는 길</p>  
         녹사평역 - 경리단길 - 하얏트호텔 사거리 좌회전
         <br />
-        서울역 방면에서 오는 길
-        <br />
+        <p className='guides' style={{fontWeight: 'bold', fontSize: '20px'}}>서울역 방면에서 오는 길</p>  
         밀레니엄 힐튼호텔 - 남산식물원 방향
         </div>
       </div>
-
-      <div>
+      <div style={{ background: "#f5ebe0", padding: '10px 10px 10px 10px' }}>
+        <div>
+        <p style={{ fontFamily: 'Noto Serif KR', fontWeight: '900', fontSize: '25px' }}> {heartIcon}<span>  </span>마음 전하실 곳<span>  </span>{heartIcon}</p>
+        </div>
+        
         <div>
           <p style={{ fontFamily: 'Noto Serif KR'}}><span style={{fontFamily: 'Nanum Pen Script', fontSize: '30px', fontWeight: '800'}}>신랑 </span>에게 연락하기</p>
-          <a href="tel:778-878-7206">
+          <a href="tel:010-4644-9776">
             <CallOutlinedIcon fontSize="large" className='icons'/>
           </a>
-          <a href="sms:778-878-7206">
+          <a href="sms:010-4644-9776">
             <TextsmsOutlinedIcon fontSize="large" className='icons'/>
           </a>
           <a href="http://qr.kakao.com/talk/ESL_Rgzt0RpFpJA5VPxTJJ1LTVs-">
@@ -200,21 +235,16 @@ function App() {
         </div>
         <div>
           <p style={{ fontFamily: 'Noto Serif KR'}}><span style={{fontFamily: 'Nanum Pen Script', fontSize: '30px', fontWeight: '800'}}>신부 </span>에게 연락하기</p>
-          <a href="tel:778-878-7206">
+          <a href="tel:010-5218-1633">
             <CallOutlinedIcon fontSize="large" className='icons'/>
           </a>
-          <a href="sms:778-878-7206">
+          <a href="sms:010-5218-1633">
             <TextsmsOutlinedIcon fontSize="large" className='icons'/>
           </a>
-          <a href="http://qr.kakao.com/talk/ESL_Rgzt0RpFpJA5VPxTJJ1LTVs-">
+          <a href="http://qr.kakao.com/talk/vOUGkXsyKUFMvd0JdQqHDpZZArM-">
             <img style={{ marginLeft: "24px",}} src='/img/kakaotalk.png' alt="kakaoTalk" width="35px" height="35px"/>
           </a>
         </div>
-      </div>
-
-      <div>
-        <p style={{ fontFamily: 'Noto Serif KR', fontWeight: '900', fontSize: '25px' }}>마음 전하실 곳</p>
-      </div>
 
       <div style={{ fontFamily: 'Noto Serif KR', fontSize: '15px' }}>
         <p>
@@ -230,7 +260,7 @@ function App() {
         </p>
         <div style={{ display: "flex", justifyContent: "center" }}>
 
-          <a href="https://qr.kakaopay.com/Ej8ZN4qpM">
+          <a href="https://qr.kakaopay.com/281006011000048056615442">
             <img src='/img/payment_icon_yellow_medium.png' alt="kakaopay" width="60px" height="25px" />
           </a>
         </div>
@@ -238,17 +268,13 @@ function App() {
 
       <div>  </div>
 
-      <div style={{ margin: '10px'}}>
-        <p style={{ fontFamily: 'Noto Serif KR',  fontWeight: '900', fontSize: '25px', margin: '5px'}}>공유하기</p>
+      <div style={{ margin: '10px 0 10px 0'}}>
+        <p style={{ fontFamily: 'Noto Serif KR',  fontWeight: '900', fontSize: '25px', margin: '5px'}}>주소 복사하기</p>
         <br />
-          <a href="tel:778-878-7206">
-            <CallOutlinedIcon fontSize="large" className='icons'/>
-          </a>
-          <a href="sms:778-878-7206">
-            <TextsmsOutlinedIcon fontSize="large" className='icons'/>
-          </a>
+          <span style={{ fontSize: '36px', margin: '0 0 0 0'}} onClick={() => handleCopyClipBoard(`https://ephemeral-meringue-250833.netlify.app/`)}>{clipIcon}</span>
       </div>
 
+      </div>
       <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center', padding: 'auto', background: 'black', color: 'white', fontSize: '15px', height: '5vh'}}>Made by @GyoungHwan Hong</div>
     </div>
   );
