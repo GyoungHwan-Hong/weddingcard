@@ -1,6 +1,5 @@
 import './App.css';
 import React from 'react';
-import ReactDOM from 'react-dom'
 import Location from './location';
 import PhotoAlbum from "react-photo-album"
 import Lightbox from "yet-another-react-lightbox";
