@@ -86,3 +86,7 @@
   font-family: 'Noto Serif KR', serif;
   color: #8a817c;
 }
+
+.main-text {
+  background-color: rgba( 0, 0, 0, 0.3 )
+}
