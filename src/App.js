@@ -256,7 +256,6 @@ function App() {
             <img style={{ marginLeft: "24px", }} src='/img/kakaotalk.png' alt="kakaoTalk" width="35px" height="35px" />
           </a>
         </div>
-
         <div style={{ fontFamily: 'Noto Serif KR', fontSize: '15px' }}>
           <p>
             <span>신랑 </span> <span style={{ fontSize: '25px', fontWeight: '700' }}> 홍경환 </span>
@@ -283,17 +282,12 @@ function App() {
             </a>
           </div>
         </div>
-
-        <div>  </div>
-
         {/* <div style={{ margin: '10px 0 10px 0' }}>
           <p style={{ fontFamily: 'Noto Serif KR', fontWeight: '900', fontSize: '25px', margin: '5px' }}>주소 복사하기</p>
           <br />
           <span style={{ fontSize: '36px', margin: '0 0 0 0' }} onClick={() => handleCopyClipBoard(`https://ephemeral-meringue-250833.netlify.app/`)}>{clipIcon}</span>
         </div> */}
-
         <GuestBook />
-
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center', padding: 'auto', background: 'black', color: 'white', fontSize: '15px', height: '5vh' }}>Made by @GyoungHwan Hong</div>
     </div>
