@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 import Location from './location';
+import GuestBook from './GuestBook';
 import PhotoAlbum from "react-photo-album"
 import Lightbox from "yet-another-react-lightbox";
 import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
@@ -283,6 +284,8 @@ function App() {
           <br />
           <span style={{ fontSize: '36px', margin: '0 0 0 0' }} onClick={() => handleCopyClipBoard(`https://ephemeral-meringue-250833.netlify.app/`)}>{clipIcon}</span>
         </div> */}
+
+        <GuestBook />
 
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center', padding: 'auto', background: 'black', color: 'white', fontSize: '15px', height: '5vh' }}>Made by @GyoungHwan Hong</div>
