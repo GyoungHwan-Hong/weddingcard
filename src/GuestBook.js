@@ -105,7 +105,7 @@ function GuestBook() {
                 {guestbookEntries.map((entry, index) => (
                     <li key={entry.id}>
                         <div className="GuestMessage">
-                        <strong style={{ margin: '3px'}}> {entry.name} </strong> 
+                        <strong style={{ margin: '3px', fontSize: '20px'}}> {entry.name} </strong> 
                         <span>{entry.content}</span>
                         <button className="deleteButton" onClick={() => confirmDelete(entry)}>지우기</button>
                         </div>

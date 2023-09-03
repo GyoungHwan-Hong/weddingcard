@@ -115,7 +115,7 @@ function App() {
         <br />
         캐나다에 온 이후로
         <br />
-        좋은 소식만 전하고 싶은 욕심에 
+        좋은 소식만 전하려고 보니
         <br />
         연락을 자주 못 했습니다.
         <br />
@@ -261,7 +261,11 @@ function App() {
           <p>
             <span>신랑 </span> <span style={{ fontSize: '25px', fontWeight: '700' }}> 홍경환 </span>
           </p>
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <p>E-transfer: hongkh5218@gmail.com</p>
+          <p>기업은행 01046449776 </p>
+          <p>예금주 : 홍경환</p>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            <p style={{ fontSize:"16px"}}>카카오페이</p>
             <a href="https://qr.kakaopay.com/Ej7vEx8PX">
               <img src='/img/payment_icon_yellow_medium.png' alt="kakaopay" width="60px" height="25px" />
             </a>
@@ -269,8 +273,11 @@ function App() {
           <p>
             <span>신부 </span> <span style={{ fontSize: '25px', fontWeight: '700' }}> 이현경 </span>
           </p>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-
+          <p>E-transfer: lovely2hk@gmail.com</p>
+          <p>국민은행 343602-04-182362 </p>
+          <p>예금주 : 이현경</p>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            <p style={{ fontSize:"16px"}}>카카오페이</p>
             <a href="https://qr.kakaopay.com/281006011000048056615442">
               <img src='/img/payment_icon_yellow_medium.png' alt="kakaopay" width="60px" height="25px" />
             </a>
