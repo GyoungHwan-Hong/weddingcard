@@ -83,7 +83,7 @@ function GuestBook() {
         try {
             if (entryToDelete && entryToDelete.password === passwordToDelete) {
                 await deleteDoc(doc(db, "GuestBook", entryToDelete.id));
-                console.log('글이 성공적으로 삭제되었습니다.');
+                alert('글이 성공적으로 삭제되었습니다.');
                 // 글을 성공적으로 삭제한 후 방명록 목록을 다시 불러옴
                 fetchData();
                 setEntryToDelete('');
