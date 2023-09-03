@@ -60,7 +60,7 @@ function GuestBook() {
     const addEntry = async (entry) => {
         try {
             await addDoc(collection(db, "GuestBook"), entry);
-            console.log('글이 성공적으로 추가되었습니다.');
+            alert('글이 성공적으로 추가되었습니다.');
             // 글을 성공적으로 추가한 후 방명록 목록을 다시 불러옴
             fetchData();
         } catch (error) {
