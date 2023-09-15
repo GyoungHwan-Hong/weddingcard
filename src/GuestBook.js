@@ -6,6 +6,7 @@ import { getAnalytics } from "firebase/analytics";
 import { collection, getDocs, getFirestore, addDoc, doc, deleteDoc } from "firebase/firestore";
 import GuestBookForm from './GuestBookForm';
 import Modal from 'react-modal';
+import { useTranslation } from "react-i18next";
 
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -31,12 +32,19 @@ const querySnapshot = await getDocs(collection(db, "GuestBook"));
 Modal.setAppElement('#root');
 
 function GuestBook() {
+
+    const { t } = useTranslation();
+
     const [guestbookEntries, setGuestbookEntries] = useState([]);
     const [passwordToDelete, setPasswordToDelete] = useState('');
     const [entryToDelete, setEntryToDelete] = useState(null);
     const [modalIsOpen, setModalIsOpen] = useState(false); // 모달 상태 추가
     const [entries, setEntries] = useState([]);
 
+
+    const cancel = t("cancel");
+    const submit = t("submit");
+    const confirmPassword = t("confirmPassword");
 
     // Get a list of messages from firestore
     const fetchData = async () => {
@@ -58,9 +66,12 @@ function GuestBook() {
 
 
     const addEntry = async (entry) => {
+
+        const addedMessage = t("addedMessage");
+
         try {
             await addDoc(collection(db, "GuestBook"), entry);
-            alert('글이 성공적으로 추가되었습니다.');
+            alert(addedMessage);
             // 글을 성공적으로 추가한 후 방명록 목록을 다시 불러옴
             fetchData();
         } catch (error) {
@@ -80,17 +91,21 @@ function GuestBook() {
     };
 
     const deleteEntry = async () => {
+
+        const deletedMessage = t("deleteMessage");
+        const wrongPassword = t("wrongPassword");
+
         try {
             if (entryToDelete && entryToDelete.password === passwordToDelete) {
                 await deleteDoc(doc(db, "GuestBook", entryToDelete.id));
-                alert('글이 성공적으로 삭제되었습니다.');
+                alert(deletedMessage);
                 // 글을 성공적으로 삭제한 후 방명록 목록을 다시 불러옴
                 fetchData();
                 setEntryToDelete('');
                 setPasswordToDelete('');
                 setModalIsOpen(false); // 모달 닫기
             } else {
-                alert('비밀번호가 일치하지 않습니다.');
+                alert(wrongPassword);
             }
         } catch (error) {
             console.error('Error deleting entry: ', error);
@@ -100,33 +115,34 @@ function GuestBook() {
     return (
         <div className="GuestBook">
             <GuestBookForm addEntry={addEntry} />
-            <h2>축하 메세지</h2>
+            <h2>{t("guestbook")}</h2>
             <ul>
                 {guestbookEntries.map((entry, index) => (
                     <li key={entry.id}>
                         <div className="GuestMessage">
                         <strong style={{ margin: '3px', fontSize: '20px'}}> {entry.name} </strong> 
                         <span>{entry.content}</span>
-                        <button className="deleteButton" onClick={() => confirmDelete(entry)}>지우기</button>
+                        <button className="deleteButton" onClick={() => confirmDelete(entry)}>{t("deleteButton")}</button>
                         </div>
                     </li>
                 ))}
             </ul>
+
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={cancelDelete}
                 contentLabel="삭제 확인 모달"
                 appElement={document.getElementById('root')} // 모달의 appElement 설정
             >
-                <h2>비밀번호 확인</h2>
+                <h2>{confirmPassword}</h2>
                 <input
                     type="password"
                     placeholder="비밀번호 입력"
                     value={passwordToDelete}
                     onChange={(e) => setPasswordToDelete(e.target.value)}
                 />
-                <button onClick={deleteEntry}>확인</button>
-                <button onClick={cancelDelete}>취소</button>
+                <button onClick={deleteEntry}>{submit}</button>
+                <button onClick={cancelDelete}>{cancel}</button>
             </Modal>
         </div>
     );

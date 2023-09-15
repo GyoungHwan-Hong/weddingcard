@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { useTranslation } from "react-i18next";
 
 function GuestBookForm({ addEntry }) {
+
+  const { t } = useTranslation();
+
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [content, setContent] = useState('');
@@ -17,10 +21,10 @@ function GuestBookForm({ addEntry }) {
 
   return (
     <div style={{ width: '100%'}}>
-      <h2>축하 메세지 작성하기</h2>
+      <h2>{t("titleMessage")}</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>성함</label>
+          <label>{t("writer")}</label>
           <input
             type="text"
             id="name"
@@ -30,7 +34,7 @@ function GuestBookForm({ addEntry }) {
           />
         </div>
         <div>
-          <label htmlFor="password">비밀번호 (지울 경우 필요)</label>
+          <label htmlFor="password">{t("password")}</label>
           <input
             type="password"
             id="password"
@@ -40,7 +44,7 @@ function GuestBookForm({ addEntry }) {
           />
         </div>
         <div>
-          <label htmlFor="content">축하 메세지 (100자 이내)</label>
+          <label htmlFor="content">{t("content")}</label>
           <textarea
             id="content"
             value={content}
@@ -49,7 +53,7 @@ function GuestBookForm({ addEntry }) {
             required
           />
         </div>
-        <button type="submit">글 등록</button>
+        <button type="submit">{t("submit")}</button>
       </form>
     </div>
   );
