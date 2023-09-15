@@ -1,25 +1,32 @@
 // Import the functions you need from the SDKs you need
-import './GuestBook.css'
-import React, { useEffect, useState } from 'react';
+import "./GuestBook.css";
+import CryptoJS from "crypto-js";
+import React, { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { collection, getDocs, getFirestore, addDoc, doc, deleteDoc } from "firebase/firestore";
-import GuestBookForm from './GuestBookForm';
-import Modal from 'react-modal';
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  addDoc,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
+import GuestBookForm from "./GuestBookForm";
+import Modal from "react-modal";
 import { useTranslation } from "react-i18next";
-
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 const firebaseConfig = {
-    apiKey: process.env.REACT_APP_APIKEY,
-    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-    projectId: process.env.REACT_APP_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_MESSAGIN_ID,
-    appId: process.env.REACT_APP_APP_ID,
-    measurementId: process.env.REACT_APP_MEASUREMENT_ID
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGIN_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
@@ -28,124 +35,134 @@ const db = getFirestore();
 const analytics = getAnalytics(app);
 const querySnapshot = await getDocs(collection(db, "GuestBook"));
 
-
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
 function GuestBook() {
+  const { t } = useTranslation();
 
-    const { t } = useTranslation();
+  const [guestbookEntries, setGuestbookEntries] = useState([]);
+  const [passwordToDelete, setPasswordToDelete] = useState("");
+  const [entryToDelete, setEntryToDelete] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false); // 모달 상태 추가
+  const [entries, setEntries] = useState([]);
 
-    const [guestbookEntries, setGuestbookEntries] = useState([]);
-    const [passwordToDelete, setPasswordToDelete] = useState('');
-    const [entryToDelete, setEntryToDelete] = useState(null);
-    const [modalIsOpen, setModalIsOpen] = useState(false); // 모달 상태 추가
-    const [entries, setEntries] = useState([]);
+  const cancel = t("cancel");
+  const submit = t("submit");
+  const confirmPassword = t("confirmPassword");
 
+  // Get a list of messages from firestore
+  const fetchData = async () => {
+    try {
+      const entries = [];
+      querySnapshot.forEach((doc) => {
+        entries.push({ id: doc.id, ...doc.data() });
+      });
+      setGuestbookEntries(entries);
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+    }
+  };
 
-    const cancel = t("cancel");
-    const submit = t("submit");
-    const confirmPassword = t("confirmPassword");
+  useEffect(() => {
+    fetchData();
+  }, [entries]);
 
-    // Get a list of messages from firestore
-    const fetchData = async () => {
-        try {
-            const entries = [];
-            querySnapshot.forEach((doc) => {
-                entries.push({ id: doc.id, ...doc.data() });
-            });
-            setGuestbookEntries(entries);
-        } catch (error) {
-            console.error('Error fetching data: ', error);
+  const addEntry = async (entry) => {
+    const addedMessage = t("addedMessage");
+
+    try {
+      const hashedPassword = CryptoJS.SHA256(entry.password).toString();
+      entry.password = hashedPassword; // 해시화된 비밀번호로 교체
+
+      await addDoc(collection(db, "GuestBook"), entry);
+      alert(addedMessage);
+      // 글을 성공적으로 추가한 후 방명록 목록을 다시 불러옴
+      fetchData();
+    } catch (error) {
+      console.error("Error adding entry: ", error);
+    }
+  };
+
+  const confirmDelete = (entry) => {
+    setEntryToDelete(entry);
+    setModalIsOpen(true); // 모달 열기
+  };
+
+  const cancelDelete = () => {
+    setEntryToDelete(null);
+    setPasswordToDelete("");
+    setModalIsOpen(false); // 모달 닫기
+  };
+
+  const deleteEntry = async () => {
+    const deletedMessage = t("deleteMessage");
+    const wrongPassword = t("wrongPassword");
+
+    try {
+      if (entryToDelete) {
+        // 클라이언트 측에서 비밀번호를 해시화
+        const hashedPassword = CryptoJS.SHA256(passwordToDelete).toString();
+
+        if (hashedPassword === entryToDelete.password) {
+          await deleteDoc(doc(db, "GuestBook", entryToDelete.id));
+          alert(deletedMessage);
+          fetchData();
+          setEntryToDelete("");
+          setPasswordToDelete("");
+          setModalIsOpen(false);
+        } else {
+          alert(wrongPassword);
         }
-    };
-    
-    
-    useEffect(() => {
-        fetchData();
-    }, [entries]);
+      } else {
+        alert(wrongPassword);
+      }
+    } catch (error) {
+      console.error("Error deleting entry: ", error);
+    }
+  };
 
+  return (
+    <div className="GuestBook">
+      <GuestBookForm addEntry={addEntry} />
+      <h2>{t("guestbook")}</h2>
+      <ul>
+        {guestbookEntries.map((entry, index) => (
+          <li key={entry.id}>
+            <div className="GuestMessage">
+              <strong style={{ margin: "3px", fontSize: "20px" }}>
+                {" "}
+                {entry.name}{" "}
+              </strong>
+              <span>{entry.content}</span>
+              <button
+                className="deleteButton"
+                onClick={() => confirmDelete(entry)}
+              >
+                {t("deleteButton")}
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
 
-    const addEntry = async (entry) => {
-
-        const addedMessage = t("addedMessage");
-
-        try {
-            await addDoc(collection(db, "GuestBook"), entry);
-            alert(addedMessage);
-            // 글을 성공적으로 추가한 후 방명록 목록을 다시 불러옴
-            fetchData();
-        } catch (error) {
-            console.error('Error adding entry: ', error);
-        }
-    };
-
-    const confirmDelete = (entry) => {
-        setEntryToDelete(entry);
-        setModalIsOpen(true); // 모달 열기
-    };
-
-    const cancelDelete = () => {
-        setEntryToDelete(null);
-        setPasswordToDelete('');
-        setModalIsOpen(false); // 모달 닫기
-    };
-
-    const deleteEntry = async () => {
-
-        const deletedMessage = t("deleteMessage");
-        const wrongPassword = t("wrongPassword");
-
-        try {
-            if (entryToDelete && entryToDelete.password === passwordToDelete) {
-                await deleteDoc(doc(db, "GuestBook", entryToDelete.id));
-                alert(deletedMessage);
-                // 글을 성공적으로 삭제한 후 방명록 목록을 다시 불러옴
-                fetchData();
-                setEntryToDelete('');
-                setPasswordToDelete('');
-                setModalIsOpen(false); // 모달 닫기
-            } else {
-                alert(wrongPassword);
-            }
-        } catch (error) {
-            console.error('Error deleting entry: ', error);
-        }
-    };
-
-    return (
-        <div className="GuestBook">
-            <GuestBookForm addEntry={addEntry} />
-            <h2>{t("guestbook")}</h2>
-            <ul>
-                {guestbookEntries.map((entry, index) => (
-                    <li key={entry.id}>
-                        <div className="GuestMessage">
-                        <strong style={{ margin: '3px', fontSize: '20px'}}> {entry.name} </strong> 
-                        <span>{entry.content}</span>
-                        <button className="deleteButton" onClick={() => confirmDelete(entry)}>{t("deleteButton")}</button>
-                        </div>
-                    </li>
-                ))}
-            </ul>
-
-            <Modal
-                isOpen={modalIsOpen}
-                onRequestClose={cancelDelete}
-                contentLabel="삭제 확인 모달"
-                appElement={document.getElementById('root')} // 모달의 appElement 설정
-            >
-                <h2>{confirmPassword}</h2>
-                <input
-                    type="password"
-                    placeholder="비밀번호 입력"
-                    value={passwordToDelete}
-                    onChange={(e) => setPasswordToDelete(e.target.value)}
-                />
-                <button onClick={deleteEntry}>{submit}</button>
-                <button onClick={cancelDelete}>{cancel}</button>
-            </Modal>
-        </div>
-    );
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={cancelDelete}
+        contentLabel="삭제 확인 모달"
+        appElement={document.getElementById("root")} // 모달의 appElement 설정
+      >
+        <h2>{confirmPassword}</h2>
+        <input
+          type="password"
+          placeholder="비밀번호 입력"
+          value={passwordToDelete}
+          onChange={(e) => setPasswordToDelete(e.target.value)}
+        />
+        <button onClick={deleteEntry}>{submit}</button>
+        <button onClick={cancelDelete}>{cancel}</button>
+      </Modal>
+    </div>
+  );
 }
 
-export default GuestBook
+export default GuestBook;
