@@ -142,43 +142,15 @@ function App() {
 
   return (
     <div className="App">
-      <div
-        style={{
-          background: "#FCD8D4",
-          height: "100vh",
-          backgroundImage: `url(/img/main.jpg)`,
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          textAlign: "center",
-          padding: "auto",
-        }}
-      >
+      <div className="main-photo">
         <Snowfall images={fallingImages} snowflakeCount={200} />
-        <div
-          style={{
-            margin: "2%",
-            height: "96vh",
-            border: "1px solid white",
-            display: "block",
-            position: "relative",
-          }}
-        >
+        <div className="Line">
           <div>
             <button onClick={() => clickHandler("ko")}>KO</button>
             <button onClick={() => clickHandler("en")}>EN</button>
           </div>
           <div
             className="main-text"
-            style={{
-              padding: "15px",
-              width: "92%",
-              position: "absolute",
-              bottom: "0px",
-            }}
           >
             <h1
               style={{

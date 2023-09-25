@@ -2,10 +2,66 @@
   text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@media (min-width: 441px) {
+  .main-photo {
+    background: #fcd8d4;
+    height: 100vh;
+    background-image: url(../public/img/main.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: auto;
   }
+
+  .main-text {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: 440px;
+    border-radius: 15px;
+  }
+
+  .Line {
+    height: 100vh;
+    border: 1px solid white;
+    display: block;
+    position: relative;
+  }
+}
+
+@media (max-width: 440px) {
+  .main-photo {
+    background: #fcd8d4;
+    height: 100vh;
+    background-image: url(../public/img/main.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: auto;
+  }
+
+  .main-text {
+    padding: 15px;
+    width: 92%;
+    position: absolute;
+    bottom: 0px;
+  }
+
+  .Line {
+      margin: 2%;
+      height: 96vh;
+      border: 1px solid white;
+      display: block;
+      position: relative;
+    }
 }
 
 @keyframes App-logo-spin {
@@ -65,7 +121,7 @@
 }
 
 .icon-button:hover {
-  background-color: #F0DBDB;
+  background-color: #f0dbdb;
 }
 
 .icon {
@@ -73,20 +129,20 @@
 }
 
 .icons {
-  color:#c07e7e;
+  color: #c07e7e;
   margin: 0 20px;
 }
 
 .guides {
-  font-family: 'Noto Serif KR', serif;
-  color: #463F3A;
+  font-family: "Noto Serif KR", serif;
+  color: #463f3a;
 }
 
 .guides_detail {
-  font-family: 'Noto Serif KR', serif;
+  font-family: "Noto Serif KR", serif;
   color: #8a817c;
 }
 
 .main-text {
-  background-color: rgba( 0, 0, 0, 0.3 )
+  background-color: rgba(0, 0, 0, 0.3);
 }
